@@ -4,9 +4,13 @@ const Pagination = () => {
   const totalPages: number = 10
   const imagesPerPage: number = 9
 
-  const [activePage, setActivePage] = useState(1)
-  const [displayedPages, setDisplayedPages] = useState([1, 2, 3, 4, 5])
-  const [imagesByPage, setImagesByPage] = useState({})
+  const [activePage, setActivePage] = useState<number>(1)
+  const [displayedPages, setDisplayedPages] = useState<number[]>([
+    1, 2, 3, 4, 5,
+  ])
+  const [imagesByPage, setImagesByPage] = useState<{ [key: number]: string }>(
+    {}
+  )
 
   // Get random images for each page
   const generateRandomImages = () => {
@@ -15,7 +19,7 @@ const Pagination = () => {
     )}`
   }
 
-  const generateImagesForPage = (page: number) => {
+  const generateImagesForPage = () => {
     const images = []
     for (let i = 0; i < imagesPerPage; i++) {
       images.push(generateRandomImages())
@@ -49,61 +53,64 @@ const Pagination = () => {
 
   const updateImagesForPage = (pageNumber: number) => {
     if (!imagesByPage[pageNumber]) {
-      const images = generateImagesForPage(pageNumber);
+      const images = generateImagesForPage()
       setImagesByPage((prevImagesByPage) => {
         return {
           ...prevImagesByPage,
           [pageNumber]: images,
-        };
-      });
+        }
+      })
     }
-  };
-  
-  useEffect(() => {
-    updateImagesForPage(1);
-  }, []);
-  
-  const images = imagesByPage[activePage] || [];
-  
-  return (
-    <div className="container">
-    <div className="image-grid">
-      {images.map((imageUrl: string, index: number) => (
-        <img
-          key={index}
-          src={imageUrl}
-          className="imgs"
-          alt={`Image ${index}`}
-        />
-      ))}
-    </div>
+  }
 
-    <nav className="pagination">
-      <button
-        onClick={() => handlePageClicks(activePage - 1)}
-        className="previous"
-        disabled={activePage === 1}
-      >
-        Previous
-      </button>
-      {displayedPages.map((pageNumber) => (
+  useEffect(() => {
+    updateImagesForPage(1)
+  }, [])
+
+  const images = imagesByPage[activePage] || []
+
+  return (
+    <div className='container'>
+      <div className='image-grid'>
+        {images.map((imageUrl: string, index: number) => (
+          <img
+            key={index}
+            src={imageUrl}
+            className='imgs'
+            alt={`Image ${index}`}
+          />
+        ))}
+      </div>
+
+      <nav className='pagination'>
         <button
-          key={pageNumber}
-          onClick={() => handlePageClicks(pageNumber)}
-          className={
-            "page-link ${activePage === pageNumber ? 'current' : ''}"
-          }
-          id="bottone5">{pageNumber}</button>
-      ))}
-      <button
-        onClick={() => handlePageClicks(activePage + 1)}
-        className="next"
-        disabled={activePage === totalPages}
-      >
-        Next
-      </button>
-    </nav>
-  </div>
+          onClick={() => handlePageClicks(activePage - 1)}
+          className='previous'
+          disabled={activePage === 1}
+        >
+          Previous
+        </button>
+        {displayedPages.map((pageNumber) => (
+          <button
+            key={pageNumber}
+            onClick={() => handlePageClicks(pageNumber)}
+            className={`page-link ${
+              activePage === pageNumber ? 'current' : ''
+            }`}
+            id='bottone5'
+          >
+            {pageNumber}
+          </button>
+        ))}
+        <button
+          onClick={() => handlePageClicks(activePage + 1)}
+          className='next'
+          disabled={activePage === totalPages}
+        >
+          Next
+        </button>
+      </nav>
+    </div>
   )
 }
 

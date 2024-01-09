@@ -1,40 +1,47 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.imgs {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .pagination a {
-    display: inline-block;
-    padding: 8px 16px;
-    margin: 0 4px;
-    color: #333;
-    background-color: #f0f0f0;
-    text-decoration: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .pagination a.previous,
-  .pagination a.next {
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .pagination a.previous [disabled],
-  .pagination a.next [disabled] {
-    background-color: #ddd;
-  }
-  
-  .pagination #bottone5.current {
-    color: #aaa;
-    background-color: #1E1E20;
-    cursor: not-allowed;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.previous,
+.next,
+.page-link {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.previous:hover,
+.next:hover,
+.page-link:hover {
+  background-color: #2980b9;
+}
+
+.current {
+  background-color: #2ecc71;
+}

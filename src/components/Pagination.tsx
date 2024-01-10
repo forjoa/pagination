@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 const Pagination = () => {
   const totalPages: number = 10
-  const imagesPerPage: number = 9
+  const imagesPerPage: number = 6
 
   const [activePage, setActivePage] = useState<number>(1)
   const [displayedPages, setDisplayedPages] = useState<number[]>([
